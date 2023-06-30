@@ -36,6 +36,8 @@ pipeline {
      sh 'gcloud auth activate-service-account siva-jenkins@sivaram-dev-382816.iam.gserviceaccount.com --key-file=uat1.json'
      sh 'pwd'
      sh 'gcloud projects list'
+     sh 'gcloud config list'
+     sh 'gcloud auth list'
      sh 'gcloud config set project env-uat-demo'
      sh 'gcloud compute instances create springapp-uat --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
       sh "gcloud compute instances describe springapp-uat --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > uat.txt"
