@@ -7,8 +7,8 @@ pipeline {
     PROD_SVC_ACCOUNT_KEY = credentials('prod-auth')
   }
      
-  /*  stages {
-	stage('Deploy on DEV') {
+   stages {
+/*	stage('Deploy on DEV') {
 	 steps {
     sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > dev1.json'
 //sh 'cd Jenkins'		 
