@@ -13,7 +13,7 @@ pipeline {
     sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > dev.json'
     //sh 'cd Jenkins'		 
     sh 'gcloud auth activate-service-account siva-jenkins@sivaram-dev-382816.iam.gserviceaccount.com --key-file=dev.json'
-    sh 'gcloud config set project sivaram-dev-382816'	 
+    sh 'gcloud config set project sivaram-dev'	 
 	//sh 'gcloud auth activate-service-account env-develop-demo@env-develop-demo.iam.gserviceaccount.com --key-file=dev.json' 
     	//sh 'gcloud config set project env-develop-demo'
     sh 'gcloud compute instances create springapp --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
