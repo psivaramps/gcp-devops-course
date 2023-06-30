@@ -11,7 +11,7 @@ pipeline {
 	stage('Deploy on DEV') {
 	 steps {
     sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > dev1.json'
-    //sh 'cd Jenkins'		 
+    sh 'cd Jenkins'		 
     sh 'gcloud auth activate-service-account env-develop-demo@env-develop-demo.iam.gserviceaccount.com --key-file=dev1.json' 
     sh 'gcloud config set project env-develop-demo'
     sh 'gcloud compute instances create springapp-dev --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
