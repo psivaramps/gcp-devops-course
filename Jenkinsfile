@@ -29,7 +29,7 @@ pipeline {
     }
     }
       
-/*      stage('Deploy on UAT') {
+     stage('Deploy on UAT') {
 	 steps {
     
       sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > uat1.json'
@@ -49,7 +49,7 @@ pipeline {
     
     }
     }
-*/
+
       stage('Deploy on PROD') {
 	 steps {
     
