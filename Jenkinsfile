@@ -41,7 +41,7 @@ pipeline {
         
     }
     }
-    */
+    
        stage('UAT App health check') {
 	 steps {
             sh 'sleep 40'
@@ -49,7 +49,7 @@ pipeline {
     
     }
     }
-      
+*/
       stage('Deploy on PROD') {
 	 steps {
     
