@@ -34,6 +34,7 @@ pipeline {
     
       sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > uat1.json'
      sh 'gcloud auth activate-service-account siva-jenkins@sivaram-dev-382816.iam.gserviceaccount.com --key-file=uat1.json'
+     sh 'pwd'
      sh 'gcloud projects list'
      sh 'gcloud config set project env-uat-demo'
      sh 'gcloud compute instances create springapp-uat --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
