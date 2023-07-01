@@ -8,7 +8,7 @@ pipeline {
   }
      
    stages {
-/*	stage('Deploy on DEV') {
+	stage('Deploy on DEV') {
 	 steps {
     sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > dev1.json'
 //sh 'cd Jenkins'		 
@@ -28,7 +28,7 @@ pipeline {
     
     }
     }
-      */
+      
      stage('Deploy on UAT') {
 	 steps {
     
