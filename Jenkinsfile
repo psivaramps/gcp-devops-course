@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-    DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
+   // DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
     UAT_SVC_ACCOUNT_KEY = credentials('uat-auth')
     PROD_SVC_ACCOUNT_KEY = credentials('prod-auth')
   }
      
   stages {
-	stage('Deploy on DEV') {
+	/*stage('Deploy on DEV') {
 	steps {
     	sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > envmnt-dev.json'
 //sh 'cd Jenkins'		 
@@ -27,7 +27,7 @@ pipeline {
 	    sh 'curl http://$(cat dev.txt)'
     
     }
-    }
+    }*/
       
      stage ('Deploy on UAT') {
 	steps {
