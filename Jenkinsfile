@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     environment {
-   // DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
+    DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
     UAT_SVC_ACCOUNT_KEY = credentials('uat-auth')
     PROD_SVC_ACCOUNT_KEY = credentials('prod-auth')
   }
      
   stages {
-	/*stage('Deploy on DEV') {
+	stage('Deploy on DEV') {
 	steps {
     	sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > envmnt-dev.json'
-//sh 'cd Jenkins'		 
+	//sh 'cd Jenkins'		 
     	sh 'gcloud auth activate-service-account envmnt-dev@envmnt-dev.iam.gserviceaccount.com --key-file=envmnt-dev.json' 
     	sh 'gcloud config set project envmnt-dev'
     	sh 'gcloud compute instances create springapp-dev --zone=asia-south1-a --network-interface=network=vpc-automode --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
