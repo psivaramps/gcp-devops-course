@@ -9,13 +9,13 @@ pipeline {
      
   stages {
 	stage('Deploy on DEV') {
-	 steps {
-    sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > envmnt-dev.json'
+	steps {
+    	sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > envmnt-dev.json'
 //sh 'cd Jenkins'		 
-    sh 'gcloud auth activate-service-account envmnt-dev@envmnt-dev.iam.gserviceaccount.com --key-file=envmnt-dev.json' 
-    sh 'gcloud config set project envmnt-dev'
-    sh 'gcloud compute instances create springapp-dev --zone=asia-south1-a --network-interface=network=vpc-automode --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
-    sh "gcloud compute instances describe springapp-dev --zone=asia-south1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > dev.txt"
+    	sh 'gcloud auth activate-service-account envmnt-dev@envmnt-dev.iam.gserviceaccount.com --key-file=envmnt-dev.json' 
+    	sh 'gcloud config set project envmnt-dev'
+    	sh 'gcloud compute instances create springapp-dev --zone=asia-south1-a --network-interface=network=vpc-automode --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
+    	sh "gcloud compute instances describe springapp-dev --zone=asia-south1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > dev.txt"
 	  sh 'cat dev.txt'    
     }
     }   
@@ -29,8 +29,8 @@ pipeline {
     }
     }
       
-     stages ('Deploy on UAT') {
-	 steps {
+     stage ('Deploy on UAT') {
+	steps {
     
       	sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > envmnt-uat.json'
       	sh 'gcloud auth activate-service-account envmnt-uat@envmnt-uat.iam.gserviceaccount.com --key-file=envmnt-dev.json'
@@ -54,8 +54,8 @@ pipeline {
     }
     }
 
-      stages ('Deploy on PROD') {
-	 steps {
+      stage ('Deploy on PROD') {
+	steps {
     
       	sh 'echo $PROD_SVC_ACCOUNT_KEY | base64 -d > envmnt-prod.json'
       	sh 'gcloud auth activate-service-account envmnt-prod@envmnt-prod.iam.gserviceaccount.com --key-file=envmnt-prod.json'
