@@ -7,7 +7,7 @@ pipeline {
     PROD_SVC_ACCOUNT_KEY = credentials('prod-auth')
   }
      
-   stages {
+  /* stages {
 	stage('Deploy on DEV') {
 	 steps {
     sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > envmnt-dev.json'
@@ -28,7 +28,7 @@ pipeline {
     
     }
     }
-      
+      */
      stage('Deploy on UAT') {
 	 steps {
     
