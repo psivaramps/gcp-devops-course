@@ -10,9 +10,9 @@ pipeline {
    stages {
 	stage('Deploy on DEV') {
 	 steps {
-    sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > dev1.json'
+    sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > envmnt-dev.json'
 //sh 'cd Jenkins'		 
-    sh 'gcloud auth activate-service-account env-develop-demo@env-develop-demo.iam.gserviceaccount.com --key-file=dev1.json' 
+    sh 'gcloud auth activate-service-account envmnt-dev@envmnt-dev.iam.gserviceaccount.com --key-file=envmnt-dev.json' 
     sh 'gcloud config set project env-develop-demo'
     sh 'gcloud compute instances create springapp-dev --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
     sh "gcloud compute instances describe springapp-dev --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > dev.txt"
@@ -32,8 +32,8 @@ pipeline {
      stage('Deploy on UAT') {
 	 steps {
     
-      sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > uat1.json'
-     sh 'gcloud auth activate-service-account siva-jenkins@sivaram-dev-382816.iam.gserviceaccount.com --key-file=uat1.json'
+      sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > envmnt-uat.json'
+     sh 'gcloud auth activate-service-account envmnt-uat@envmnt-uat.iam.gserviceaccount.com --key-file=envmnt-dev.json'
      sh 'pwd'
      sh 'gcloud projects list'
      sh 'gcloud config list'
@@ -57,8 +57,8 @@ pipeline {
       stage('Deploy on PROD') {
 	 steps {
     
-      sh 'echo $PROD_SVC_ACCOUNT_KEY | base64 -d > prod1.json'
-      sh 'gcloud auth activate-service-account env-prod-demo@env-prod-demo.iam.gserviceaccount.com --key-file=prod1.json'
+      sh 'echo $PROD_SVC_ACCOUNT_KEY | base64 -d > envmnt-prod.json'
+      sh 'gcloud auth activate-service-account envmnt-prod@envmnt-prod.iam.gserviceaccount.com --key-file=envmnt-prod.json'
       sh 'gcloud config set project env-prod-demo'
       sh 'gcloud compute instances create springapp-prod --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
       sh "gcloud compute instances describe springapp-prod --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > prod.txt"
