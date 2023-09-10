@@ -27,7 +27,7 @@ pipeline {
 	    sh 'curl http://$(cat dev.txt)'
     
     }
-    }*/
+    }
       
      stage ('Deploy on UAT') {
 	steps {
