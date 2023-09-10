@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-    //DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
+    DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
     UAT_SVC_ACCOUNT_KEY = credentials('uat-auth')
     PROD_SVC_ACCOUNT_KEY = credentials('prod-auth')
   }
      
-  /* stages {
+  stages {
 	stage('Deploy on DEV') {
 	 steps {
     sh 'echo $DEV_SVC_ACCOUNT_KEY | base64 -d > envmnt-dev.json'
@@ -21,26 +21,26 @@ pipeline {
     }   
     
   
-  stage('DEV App health check') {
+  stage ('DEV App health check') {
 	 steps {
             sh 'sleep 40'
 	    sh 'curl http://$(cat dev.txt)'
     
     }
     }
-      */
-     stage('Deploy on UAT') {
+      
+     stages ('Deploy on UAT') {
 	 steps {
     
-      sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > envmnt-uat.json'
-     sh 'gcloud auth activate-service-account envmnt-uat@envmnt-uat.iam.gserviceaccount.com --key-file=envmnt-dev.json'
-     sh 'pwd'
-     sh 'gcloud projects list'
-     sh 'gcloud config list'
-     sh 'gcloud auth list'
-     sh 'gcloud config set project envmnt-uat'
-     sh 'gcloud compute instances create springapp-uat --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
-      sh "gcloud compute instances describe springapp-uat --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > uat.txt"
+      	sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > envmnt-uat.json'
+      	sh 'gcloud auth activate-service-account envmnt-uat@envmnt-uat.iam.gserviceaccount.com --key-file=envmnt-dev.json'
+     	//sh 'pwd'
+      	//sh 'gcloud projects list'
+      	//sh 'gcloud config list'
+     	//sh 'gcloud auth list'
+     	sh 'gcloud config set project envmnt-uat'
+      	sh 'gcloud compute instances create springapp-uat --zone=us-central1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
+     	sh "gcloud compute instances describe springapp-uat --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > uat.txt"
 	    sh 'cat uat.txt'
         
     }
@@ -54,14 +54,14 @@ pipeline {
     }
     }
 
-      stage('Deploy on PROD') {
+      stages ('Deploy on PROD') {
 	 steps {
     
-      sh 'echo $PROD_SVC_ACCOUNT_KEY | base64 -d > envmnt-prod.json'
-      sh 'gcloud auth activate-service-account envmnt-prod@envmnt-prod.iam.gserviceaccount.com --key-file=envmnt-prod.json'
-      sh 'gcloud config set project envmnt-prod'
-      sh 'gcloud compute instances create springapp-prod --zone=asia-southeast1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
-      sh "gcloud compute instances describe springapp-prod --zone=asia-southeast1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > prod.txt"
+      	sh 'echo $PROD_SVC_ACCOUNT_KEY | base64 -d > envmnt-prod.json'
+      	sh 'gcloud auth activate-service-account envmnt-prod@envmnt-prod.iam.gserviceaccount.com --key-file=envmnt-prod.json'
+     	sh 'gcloud config set project envmnt-prod'
+     	sh 'gcloud compute instances create springapp-prod --zone=asia-southeast1-a --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
+    	sh "gcloud compute instances describe springapp-prod --zone=asia-southeast1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > prod.txt"
 	    sh 'cat prod.txt'
         
     }
