@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-    DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
+    //DEV_SVC_ACCOUNT_KEY = credentials('dev-auth')
     UAT_SVC_ACCOUNT_KEY = credentials('uat-auth')
     PROD_SVC_ACCOUNT_KEY = credentials('prod-auth')
   }
