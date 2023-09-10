@@ -33,7 +33,7 @@ pipeline {
 	steps {
     
       	sh 'echo $UAT_SVC_ACCOUNT_KEY | base64 -d > envmnt-uat.json'
-      	sh 'gcloud auth activate-service-account envmnt-uat@envmnt-uat.iam.gserviceaccount.com --key-file=envmnt-dev.json'
+      	sh 'gcloud auth activate-service-account envmnt-uat@envmnt-uat.iam.gserviceaccount.com --key-file=envmnt-uat.json'
      	//sh 'pwd'
       	//sh 'gcloud projects list'
       	//sh 'gcloud config list'
