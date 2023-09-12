@@ -60,8 +60,8 @@ pipeline {
       	sh 'echo $PROD_SVC_ACCOUNT_KEY | base64 -d > envmnt-prod.json'
       	sh 'gcloud auth activate-service-account envmnt-prod@envmnt-prod.iam.gserviceaccount.com --key-file=envmnt-prod.json'
      	sh 'gcloud config set project envmnt-prod'
-     	sh 'gcloud compute instances create springapp-prod --zone=us-west4-b  --machine-type=e2-small --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
-    	sh "gcloud compute instances describe springapp-prod --zone=us-west4-b  --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > prod.txt"
+     	sh 'gcloud compute instances create springapp-prod --zone=central1-b  --machine-type=e2-small --tags=http-server --metadata-from-file=startup-script=./scripts/startup-script.sh'
+    	sh "gcloud compute instances describe springapp-prod --zone=central1-a  --format='get(networkInterfaces[0].accessConfigs[0].natIP)' > prod.txt"
 	    sh 'cat prod.txt'
         
     }
